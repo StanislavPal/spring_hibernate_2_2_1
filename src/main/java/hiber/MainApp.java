@@ -31,11 +31,6 @@ public class MainApp {
       user3.setCar(car3);
       user4.setCar(car4);
 
-//      car1.setOwner(user1);
-//      car2.setOwner(user2);
-//      car3.setOwner(user3);
-//      car4.setOwner(user4);
-
       userService.add(user1);
       userService.add(user2);
       userService.add(user3);
@@ -51,15 +46,29 @@ public class MainApp {
          System.out.println();
       }
 
+      System.out.println("===============Users by his car=================");
+
+      users = userService.getUserByCar("ВАЗ", 2110);
+      for (User user : users) {
+         System.out.println("Id = "+user.getId());
+         System.out.println("First Name = "+user.getFirstName());
+         System.out.println("Last Name = "+user.getLastName());
+         System.out.println("Email = "+user.getEmail());
+         System.out.println("Car = "+user.getCar().getModel() + " " + user.getCar().getSeries());
+         System.out.println();
+      }
       context.close();
    }
 }
 
 /*
-1. Скачать и установить jdk 1.8 иначе ошибки xml...  в более поздних версиях, т.к. выпилили библиотеки.
+1. Скачать и установить jdk 1.8 иначе ошибки java.lang.ClassNotFoundException: javax.xml.bind.JAXBException
+в более поздних версиях, т.к. выпилили библиотеки.
 2. Обновить МайСКЛ коннектор в пом файле, т.к. сервер уже не работал со старой версией.
 3. Не пытаться решить задачу через связь классов Кар и Юзер через технологию Спринг связывания (@Entity + @Componet
 + @AutoWired) - так не делают, и это не работает. Связывание делать "вручную"
 4. Не нужно городить огород ДАО/Сервайс для класса Кар. Хибернейт всю работу по мапингу класса в БД берёт на себя, через
 связывающие анотации @OneToEne
+5. Перебрал разные комбинации Query и способы передачи параметров прежде чем написал правильно запрос HQL
+на возврат юзера по модели и серии его машины
  */
